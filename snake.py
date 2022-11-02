@@ -52,7 +52,7 @@ clock = pygame.time.Clock()"""
             pygame.draw.rect(screen, color, rect)
 
     pygame.display.update()"""
-    
+
 """snake = [50,50,20,60]
     black = [0,0,0]
     white = [255,255,255]
@@ -71,8 +71,11 @@ snake = [
     [12, 15],
 ]
 
+fruit = [10, 10]
+
+
 pygame.init()
-screen = pygame.display.set_mode([20*30, 20*30])
+screen = pygame.display.set_mode([20 * 30, 20 * 30])
 clock = pygame.time.Clock()
 screen.fill(white)
 
@@ -85,42 +88,50 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_q:
                 pygame.quit()
                 sys.exit()
-            if event.key == pygame.K_RIGHT :
+
+            if event.key == pygame.K_RIGHT:
                 screen.fill(white)
-                snake[0][0] = snake[1][0]
-                snake[1][0] = snake[2][0]
-                snake[2][0] = snake[2][0]+1
+                snake.pop(0)
+                snake.append([snake[-1][0] + 1, snake[-1][1]])
+
                 for x, y in snake:
-                    rect = [x*20, y*20, 20, 20]
+                    rect = [x * 20, y * 20, 20, 20]
                     pygame.draw.rect(screen, black, rect)
-            if event.key == pygame.K_LEFT :
+
+            if event.key == pygame.K_LEFT:
                 screen.fill(white)
-                snake[0][0] = snake[1][0]
-                snake[1][0] = snake[2][0]
-                snake[2][0] = snake[2][0]-1
+                snake.pop(0)
+                snake.append([snake[-1][0] - 1, snake[-1][1]])
+
                 for x, y in snake:
-                    rect = [x*20, y*20, 20, 20]
+                    rect = [x * 20, y * 20, 20, 20]
                     pygame.draw.rect(screen, black, rect)
-            if event.key == pygame.K_UP :
+
+            if event.key == pygame.K_DOWN:
                 screen.fill(white)
-                snake[0][1] = snake[1][1]
-                snake[1][1] = snake[2][1]
-                snake[2][1] = snake[2][1]-1
+                snake.pop(0)
+                snake.append([snake[-1][0], snake[-1][1] + 1])
+
                 for x, y in snake:
-                    rect = [x*20, y*20, 20, 20]
-                    pygame.draw.rect(screen, black, rect)           
-            if event.key == pygame.K_DOWN :
+                    rect = [x * 20, y * 20, 20, 20]
+                    pygame.draw.rect(screen, black, rect)
+
+            if event.key == pygame.K_UP:
                 screen.fill(white)
-                snake[0][1] = snake[1][1]
-                snake[1][1] = snake[2][1]
-                snake[2][1] = snake[2][1]+1
+                snake.pop(0)
+                snake.append([snake[-1][0], snake[-1][1] - 1])
+
                 for x, y in snake:
-                    rect = [x*20, y*20, 20, 20]
-                    pygame.draw.rect(screen, black, rect)           
+                    rect = [x * 20, y * 20, 20, 20]
+                    pygame.draw.rect(screen, black, rect)
+
+            # if fruit == snake[-1] :
+            #     snake.insert(0,[snake[]])
 
     pygame.display.update()
     clock.tick(10)
